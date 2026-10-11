@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avika, one tiny sorry? 💌</title>
+
+<style>
+:root {
+  color-scheme: light dark;
+  --pink: #ff6f9f;
+  --rose: #ffd5e2;
+  --ink: light-dark(#542b40, #ffeaf1);
+  --muted: light-dark(#86576c, #e6b9ca);
+  --paper: light-dark(#fff9fb, #281722);
+  --card: light-dark(#ffffff, #3a2331);
+  --line: light-dark(#f4c6d6, #684154);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: ui-rounded, "Trebuchet MS", system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+#app {
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 10% 10%, light-dark(#ffe1eb,#43263a), transparent 38%),
+    radial-gradient(ellipse at 90% 90%, light-dark(#fff0d9,#3a2a35), transparent 35%),
+    var(--paper);
+}
+
+main {
+  width: min(760px, 100%);
+  margin: auto;
+  padding: 38px 20px 54px;
+  position: relative;
+  z-index: 1;
+}
+
+.topline {
+  text-align: center;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.hero {
+  text-align: center;
+  padding: 20px 0 14px;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--card);
+  font-size: .82rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: .98;
+  letter-spacing: -.06em;
+  margin: 23px 0 14px;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.65;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.heart {
+  font-size: 3rem;
+  display: block;
+  margin: 18px 0 8px;
+  animation: beat 1.2s infinite;
+  filter: drop-shadow(0 8px 15px #ff6f9f44);
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: clamp(20px, 5vw, 34px);
+  margin: 20px 0;
+  box-shadow: 0 18px 55px #8e456b12;
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 1.45rem;
+  letter-spacing: -.03em;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.mini {
+  text-align: center;
+  background: light-dark(#fff4f8, #301d29);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px 8px;
+}
+
+.mini b {
+  display: block;
+  font-size: 1.55rem;
+  margin-bottom: 7px;
+}
+
+.mini span {
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.question {
+  text-align: center;
+}
+
+.question h2 {
+  font-size: clamp(1.6rem, 5vw, 2.25rem);
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 23px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 14px 21px;
+  transition: transform .18s, box-shadow .18s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(135deg, #ff6f9f, #ed4f83);
+  box-shadow: 0 9px 22px #ff6f9f40;
+}
+
+.secondary {
+  background: light-dark(#fff1f6, #482b3c);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+#noBtn {
+  position: relative;
+}
+
+#noBtn.dodge {
+  animation: wiggle .35s ease-in-out;
+}
+
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -5deg; }
+  75% { rotate: 5deg; }
+}
+
+#comedy {
+  display: none;
+  margin-top: 14px;
+  font-size: .92rem;
+  color: var(--muted);
+}
+
+#comedy.show {
+  display: block;
+  animation: pop .3s ease-out;
+}
+
+.toast {
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 90vw;
+  padding: 12px 18px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 2px solid var(--pink);
+  box-shadow: 0 8px 30px #ff6f9f35;
+  text-align: center;
+  font-weight: 800;
+  animation: toastIn .35s ease-out;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(0);
+  }
+}
+
+#response {
+  display: none;
+  margin-top: 22px;
+  border-radius: 18px;
+  background: light-dark(#fff2f7, #2e1b27);
+  border: 1px dashed var(--pink);
+  padding: 18px;
+  line-height: 1.65;
+}
+
+#response.show {
+  display: block;
+  animation: pop .3s ease-out;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.note {
+  font-size: .88rem;
+  text-align: center;
+  color: var(--muted);
+  margin-top: 20px;
+}
+
+.floating {
+  position: absolute;
+  pointer-events: none;
+  opacity: .45;
+  animation: float 7s ease-in-out infinite;
+}
+
+.f1 { top: 9%; left: 5%; font-size: 1.6rem; }
+.f2 { top: 28%; right: 5%; font-size: 1.2rem; animation-delay: -2s; }
+.f3 { bottom: 12%; left: 7%; font-size: 1.5rem; animation-delay: -4s; }
+.f4 { bottom: 24%; right: 8%; font-size: 1.7rem; animation-delay: -1s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-18px) rotate(8deg); }
+}
+
+footer {
+  text-align: center;
+  padding: 12px 0 0;
+  color: var(--muted);
+  font-size: .83rem;
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 28px 15px 38px;
+  }
+
+  .mini-grid {
+    gap: 7px;
+  }
+
+  .mini {
+    padding: 13px 5px;
+  }
+
+  .mini span {
+    font-size: .72rem;
+  }
+
+  .buttons button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+
+  <span class="floating f1">💗</span>
+  <span class="floating f2">✦</span>
+  <span class="floating f3">💌</span>
+  <span class="floating f4">♡</span>
+
+  <main>
+    <div class="topline">a very serious love department production</div>
+
+    <section class="hero">
+      <div class="eyebrow">🚨 tiny relationship emergency 🚨</div>
+
+      <h1>Avika, please<br>hear me <span>out?</span></h1>
+
+      <p class="sub">
+        A little message from someone who cares about you a lot,
+        and really wants to make things right. 🥹💗
+      </p>
+
+      <span class="heart">💘</span>
+    </section>
+
+    <section class="card">
+      <h2>Hey Avika, dil se ek baat… 💌</h2>
+
+      <p style="white-space:pre-line">I'm really sorry mujhe sach mein samajh nahi aa raha ki kya bolu but yrr please baat kar lo I'm genuinely sorry for the words I said before. I know maine tumhe bahut hurt kiya hai, and I really regret it.
+
+Personally mujhe nahi pata ki aisi situations ko kaise handle karte hain and I know mai cheezein explain karne mein itna achha nahi hu, but yrr please agar hum baat hi nahi karenge toh kuch solve kaise hoga?
+
+I really want this to work.... I don't want ki meri galtiyon ki wajah se humare beech sab kuch khatam ho jaye. I know tum gusse ho and you have every right to be. Agar gussa hai toh mujhpe gussa kar lo, jo bolna hai bol lo, I'll listen. Bas please mujhe ignore mat karo.
+
+I'm not saying ki tum sab kuch abhi theek kar do bas ek baar mujhse baat kar lo. I genuinely want to make things right and I'm willing to understand where I went wrong... I'm really sorry yrr..... please 🥺❤️</p>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <b>🫶</b>
+          <span>One honest talk</span>
+        </div>
+
+        <div class="mini">
+          <b>🧸</b>
+          <span>Feelings heard</span>
+        </div>
+
+        <div class="mini">
+          <b>💬</b>
+          <span>One chance to listen</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>I'm not asking you to forget it 💗</h2>
+
+      <p>
+        I'm asking for a chance to listen, understand how I hurt you,
+        and try to do better. You don't have to be okay right now,
+        and you don't have to forgive me before you're ready.
+        I just hope we can talk when you feel ready.
+      </p>
+    </section>
+
+    <section class="card question">
+      <div style="font-size:2.3rem;margin-bottom:8px">💌</div>
+
+      <h2>Avika, what do you say? 🥺</h2>
+
+      <p>
+        No pressure to answer how I hope. Just let me know honestly,
+        whenever you're ready.
+      </p>
+
+      <div class="buttons">
+        <button class="primary" id="yesBtn">
+          Apology accepted 💗
+        </button>
+
+        <button class="secondary" id="noBtn">
+          Not yet 💔
+        </button>
+      </div>
+
+      <div id="response" role="status" aria-live="polite"></div>
+      <div id="comedy" aria-live="polite"></div>
+
+      <div class="note">
+        P.S. Whatever your answer, your feelings matter.
+        Thank you for reading this. 💌
+      </div>
+    </section>
+
+    <footer>
+      made with 100% feelings and a suspicious amount of pink ♡
+    </footer>
+  </main>
+</div>
+
+<script>
+const response = document.getElementById('response');
+const yes = document.getElementById('yesBtn');
+const no = document.getElementById('noBtn');
+const comedy = document.getElementById('comedy');
+
+let tries = 0;
+
+yes.addEventListener('click', () => {
+  response.innerHTML = `
+    <strong>THANK YOU FOR HEARING ME 💗🥹</strong><br>
+    I know one sorry can’t instantly fix everything.
+    I want to listen, understand, and show you through my actions
+    that I mean it. Whenever you’re ready, can we talk? 💌
+    <div style="font-size:1.7rem;margin-top:10px">
+      💗 💗 💗
+    </div>
+  `;
+
+  response.classList.add('show');
+  burstHearts();
+});
+
+no.addEventListener('click', () => {
+  tries++;
+
+  const messages = [
+    'Achha baba 😭 ek aur chance nahi milega kya? I know, I know… pehle sorry properly bolna chahiye tha. 🥺',
+
+    'Yaar, kaash main uss time chup ho jaata. Ab khud hi soch ke lag raha hai, “maine kya bol diya.” 😭❤️',
+
+    'Main yahan full shakal latka ke baitha hoon, aur tumhara gussa valid hai. Bas ek baar baat kar lena jab mann ho. 🥹',
+
+    'Sach bolun? I miss talking to you. Not trying to be filmy, bas tumse baat karna achha lagta hai. 💗',
+
+    'Agar sorry bolne se sab theek hota na, ab tak 47 baar bol chuka hota. But I know actions matter too. ❤️',
+
+    'Theek hai, madam, gussa kar lo. Main sun lunga. Bas jab ready ho, mujhe bhi apni baat samjhane ka ek mauka dena. 🫶',
+
+    'Abhi bhi gussa ho toh I get it. Main bas yeh nahi chahta ki meri ek stupid mistake ki wajah se hum baat karna hi chhod dein. 🥺',
+
+    'Okay, last thing: I really am sorry, Avika. No pressure to forgive me right now. I’ll be here when you’re ready. ❤️'
+  ];
+
+  response.innerHTML =
+    '<strong>Achha suno na… ❤️</strong><br>' +
+    messages[Math.min(tries - 1, messages.length - 1)];
+
+  response.classList.add('show');
+
+  const littleMessages = [
+    '🥺 please?',
+    '❤️ I owe you a proper conversation',
+    '🫶 I’ll listen, promise',
+    '💗 whenever you’re ready'
+  ];
+
+  comedy.textContent =
+    littleMessages[Math.min(tries - 1, 3)];
+
+  comedy.classList.add('show');
+
+  no.classList.remove('dodge');
+  void no.offsetWidth;
+  no.classList.add('dodge');
+
+  if (tries < 5) {
+    const dx =
+      (Math.random() - 0.5) *
+      Math.min(100, window.innerWidth * 0.22);
+
+    const dy = (Math.random() - 0.5) * 34;
+
+    no.style.transform =
+      `translate(${dx}px, ${dy}px) rotate(${Math.random() * 10 - 5}deg)`;
+  } else {
+    no.textContent = 'Still mad? 😭';
+    no.style.transform = 'none';
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+
+  const toastMessages = [
+    '🥺 ek baar sun lo na?',
+    '❤️ sorry, genuinely',
+    '💗 I miss us talking',
+    '🫶 no rush, Avika'
+  ];
+
+  toast.textContent =
+    toastMessages[Math.min(tries - 1, 3)];
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 1700);
+
+  if (tries === 1 || tries % 2 === 0) {
+    burstSilly();
+  }
+});
+
+function burstSilly() {
+  const symbols = [
+    '💗', '💖', '💕', '❤️', '💘', '🥹', '🫶'
+  ];
+
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('span');
+
+    el.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    el.style.cssText = `
+      position: fixed;
+      left: ${Math.random() * 100}vw;
+      top: ${45 + Math.random() * 40}vh;
+      font-size: ${20 + Math.random() * 20}px;
+      pointer-events: none;
+      z-index: 10;
+      transition: transform 1.3s ease, opacity 1.3s ease;
+    `;
+
+    document.body.appendChild(el);
+
+    requestAnimationFrame(() => {
+      el.style.transform =
+        `translate(${Math.random() * 150 - 75}px, -${100 + Math.random() * 260}px) rotate(${Math.random() * 160 - 80}deg)`;
+
+      el.style.opacity = '0';
+    });
+
+    setTimeout(() => el.remove(), 1400);
+  }
+}
+
+function burstHearts() {
+  const symbols = ['💗', '💖', '💕', '✨', '💘'];
+
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('span');
+
+    el.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    el.style.cssText = `
+      position: fixed;
+      left: ${Math.random() * 100}vw;
+      top: ${65 + Math.random() * 25}vh;
+      font-size: ${18 + Math.random() * 18}px;
+      pointer-events: none;
+      z-index: 5;
+      transition: transform 1.4s ease, opacity 1.4s ease;
+    `;
+
+    document.body.appendChild(el);
+
+    requestAnimationFrame(() => {
+      el.style.transform =
+        `translateY(-${120 + Math.random() * 360}px) rotate(${Math.random() * 80 - 40}deg)`;
+
+      el.style.opacity = '0';
+    });
+
+    setTimeout(() => el.remove(), 1500);
+  }
+}
+</script>
+</body>
+</html>
